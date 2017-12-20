@@ -1,0 +1,158 @@
+MASi Processors as part of KIT Data Manager
+===========================================
+Contact <support@datamanager.kit.edu>
+:toc: left
+:toclevels: 3
+:iconsdir: ./icons
+:icons: font
+:max-width: 90em
+:author:    KIT Data Manager Dev Team
+:email:     support@datamanager.kit.edu
+:revdate:   ${datestamp}
+:revnumber: ${project.version}
+:website: http://datamanager.kit.edu/index.php/kit-data-manager
+
+.Preliminary Remarks
+**********************************************************************
+If you are struggling with the terms
+
+- KIT Data Manager
+- Repository
+- Digital Object
+
+please read the documentation of the http://datamanager.kit.edu/dama/manual/[KIT Data Manager] first.
+**********************************************************************
+
+== MASi processors
+
+.Requirements
+**********************************************************************
+. JDK 1.8
+. KIT Data Manager 1.5 or higher
+. MetaStoreService 1.0 or higher
+**********************************************************************
+
+=== About this documentation
+This documentation gives a brief overview about the installation of
+the MASi processors as a part of KIT Data Manager. To configure the
+processors correctly please refer to 
+http://datamanager.kit.edu/dama/manual/#ChapterStagingProcessorConfiguration['Configure Staging Processor']
+
+This artifact contains the following processors:
+
+* ImageResizer
+* TikaExtractor
+
+=== ImageResizer 
+classname :: edu.kit.masi.mdm.imagetransformer.ImageResizerProcessor
+
+This processor allows you to provide images in different sizes available via
+linked views. 
+There are 3 parameters responsible for the scaling of the images:
+
+* width
+* height
+* viewname
+
+All values are comma separated. Same index inside the list is linked to same
+file.
+
+The 4th parameter defines a list of possible extensions of files which should be scaled.
+
+*Example*: jpg, tif
+
+The 5th parameter defines the output format. Possible output formats are:
+
+* JPG
+* PNG
+* GIF
+
+==== Example
+----------------------------------------------
+  Scale all image files with the following extensions (jpg, png, gif, tif) and store
+  the scaled images in JPG format.
+  
+  Scaling with viewnames:
+  32,32,icon
+  150,-1, thumb # The value '-1' indicates that the height doesn't matter.
+  1024, 768, min
+
+=> 
+          width:  32,   150, 1024
+         height:  32,    -1,  768
+       viewname:  icon, thumb,  min
+File extensions:  jpg, png, gif, tif
+  Output format:  JPG
+
+Input:
+------
+  exampleImage.gif
+
+Output:
+-------
+  exampleImage_icon.JPG
+  exampleImage_thumb.JPG
+  exampleImage_min.JPG
+----------------------------------------------
+
+==== Configuration
+To configure it like the example above it has to look like this:
+
+===== Page 1:
+
+ACCESSIBLE BY :: All groups
+
+====== *General Options*
+
+Default :: ON
+Disabled :: OFF
+Ingest Supported :: ON
+Download Supported :: OFF
+
+===== Page 2:
+
+File extensions :: jpg, gif, png, tif, tiff
+Height :: 32, 150, 1024
+Width :: 32, -1, 768
+Viewname :: icon, thumb, min
+Output format :: JPG
+ 
+=== TikaExtractor 
+classname :: edu.kit.dama.mdm.content.mets.tikaextractor.TikaExtractorProcessor
+
+Extracts all metadata from each file using TIKA library.
+While the metadata depends on the file the linked schema allow any content
+inside the file elements.
+The extracted content metadata will be stored inside the METS file.
+
+==== Configuration
+If this is the only metadata extractor configure it as follows:
+
+===== Page 1:
+
+ACCESSIBLE BY :: All groups
+
+===== *General Options*
+
+Default :: ON
+Disabled :: OFF
+Ingest Supported :: ON
+Download Supported :: OFF
+
+===== Page 2:
+
+notifyPerEmailOnFail :: FALSE
+communityMetadataDmdId :: TIKA
+communityMDType :: OTHER
+communityMetadataSchemaId :: tika
+Plugin:bmd :: TRUE
+Plugin:oai_dc :: TRUE 
+
+=== Installation of the MASi Processors
+1. Stop tomcat
+2. Install ${artifactId} as part of KIT Data Manager.
+A. Unzip _'${artifactId}-${project.version}-${group}.zip'_ at *_'KITDM_LOCATION'_*. 
+B. Run script: 'sh ${artifactId}/install.sh
+3. Restart tomcat
+4. http://datamanager.kit.edu/dama/manual/#ChapterStagingProcessorConfiguration['Configure Staging Processor']
+

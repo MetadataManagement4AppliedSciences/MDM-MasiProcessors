@@ -1,0 +1,148 @@
+<!--
+
+    Copyright (C) 2014 Karlsruhe Institute of Technology 
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<assembly>
+  <id>${group}</id>
+  <!-- which format do you prefer?
+  Possible values are: zip, tar.gz, tar.bz2, jar, dir, war
+  See also: http://maven.apache.org/plugins/maven-assembly-plugin/
+  -->
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <!-- Insert all jars the project depends on. -->
+  <dependencySets>
+    <dependencySet>
+      <outputDirectory>KITDM/WEB-INF/lib/${libFolder}</outputDirectory>
+      <includes>
+        <include>com.intellij:annotations</include>
+        <include>org.ow2.asm:asm</include>
+        <include>org.bouncycastle:bcmail-jdk15on</include>
+        <include>org.bouncycastle:bcpkix-jdk15on</include>
+        <include>org.bouncycastle:bcprov-jdk15on</include>
+        <include>org.itadaki:bzip2</include>
+        <include>edu.ucar:cdm</include>
+        <include>org.apache.commons:commons-collections4</include>
+        <include>org.apache.commons:commons-compress</include>
+        <include>org.apache.commons:commons-csv</include>
+        <include>commons-io:commons-io</include>
+        <include>org.apache.commons:commons-vfs2</include>
+        <include>com.github.virtuald:curvesapi</include>
+        <include>org.apache.cxf:cxf-core</include>
+        <include>org.apache.cxf:cxf-rt-frontend-jaxrs</include>
+        <include>org.apache.cxf:cxf-rt-rs-client</include>
+        <include>org.apache.cxf:cxf-rt-transports-http</include>
+        <include>net.sf.ehcache:ehcache-core</include>
+        <include>org.apache.pdfbox:fontbox</include>
+        <include>org.opengis:geoapi</include>
+        <include>edu.ucar:grib</include>
+        <include>org.apache.httpcomponents:httpmime</include>
+        <include>edu.ucar:httpservices</include>
+        <include>com.googlecode.mp4parser:isoparser</include>
+        <include>com.healthmarketscience.jackcess:jackcess</include>
+        <include>com.healthmarketscience.jackcess:jackcess-encrypt</include>
+        <include>com.pff:java-libpst</include>
+        <include>javax.annotation:javax.annotation-api</include>
+        <include>javax.ws.rs:javax.ws.rs-api</include>
+        <include>net.jcip:jcip-annotations</include>
+        <include>com.beust:jcommander</include>
+        <include>org.jdom:jdom2</include>
+        <include>org.apache.pdfbox:jempbox</include>
+        <include>org.codelibs:jhighlight</include>
+        <include>edu.ucar:jj2000</include>
+        <include>org.tallison:jmatio</include>
+        <include>org.json:json</include>
+        <include>com.googlecode.json-simple:json-simple</include>
+        <include>net.arnx:jsonic</include>
+        <include>javax.measure:jsr-275</include>
+        <include>com.github.junrar:junrar</include>
+        <include>com.optimaize.languagedetector:language-detector</include>
+        <include>org.apache.maven.scm:maven-scm-api</include>
+        <include>org.apache.maven.scm:maven-scm-provider-svn-commons</include>
+        <include>org.apache.maven.scm:maven-scm-provider-svnexe</include>
+        <include>com.drewnoakes:metadata-extractor</include>
+        <include>edu.ucar:netcdf4</include>
+        <include>org.apache.opennlp:opennlp-tools</include>
+        <include>org.apache.pdfbox:pdfbox</include>
+        <include>org.apache.pdfbox:pdfbox-debugger</include>
+        <include>org.apache.pdfbox:pdfbox-tools</include>
+        <include>org.apache.poi:poi</include>
+        <include>org.apache.poi:poi-ooxml</include>
+        <include>org.apache.poi:poi-ooxml-schemas</include>
+        <include>org.apache.poi:poi-scratchpad</include>
+        <include>com.google.protobuf:protobuf-java</include>
+        <include>regexp:regexp</include>
+        <include>com.rometools:rome</include>
+        <include>com.rometools:rome-utils</include>
+        <include>edu.usc.ir:sentiment-analysis-parser</include>
+        <include>org.apache.sis.core:sis-metadata</include>
+        <include>org.apache.sis.storage:sis-netcdf</include>
+        <include>org.apache.sis.core:sis-referencing</include>
+        <include>org.apache.sis.storage:sis-storage</include>
+        <include>org.apache.sis.core:sis-utility</include>
+        <include>org.codehaus.woodstox:stax2-api</include>
+        <include>org.ccil.cowan.tagsoup:tagsoup</include>
+        <include>edu.ucar:udunits</include>
+        <include>org.gagravarr:vorbis-java-core</include>
+        <include>org.gagravarr:vorbis-java-tika</include>
+        <include>org.codehaus.woodstox:woodstox-core-asl</include>
+        <include>org.apache.xmlbeans:xmlbeans</include>
+        <include>org.apache.ws.xmlschema:xmlschema-core</include>
+        <include>org.tukaani:xz</include>
+        <include>net.imagej:ij</include>
+        <include>org.apache.commons:commons-compress</include>
+        <include>org.apache.tika:tika-core</include>
+        <include>org.apache.tika:tika-langdetect</include>
+        <include>org.apache.tika:tika-parsers</include>
+        <include>${groupId}:${artifactId}</include>
+      </includes>
+    </dependencySet>
+  </dependencySets>
+  <!-- Define filter to copy into assembly. -->
+  <fileSets>
+    <!-- copy files without filtering. -->
+    <fileSet>
+      <directory>${project.build.directory}/doc</directory>
+      <outputDirectory>.</outputDirectory>
+      <includes>
+        <include>README.*</include>
+      </includes>
+      <filtered>true</filtered>
+    </fileSet>
+    <!-- copy files with filtering. -->
+    <!-- Documentation -->
+    <fileSet>
+      <directory>${project.build.directory}/doc</directory>
+      <outputDirectory>${artifactId}</outputDirectory>
+      <excludes>
+        <exclude>**/*.txt</exclude>
+        <exclude>README.*</exclude>
+      </excludes>
+      <filtered>true</filtered>
+    </fileSet>
+    <!-- Installation script -->
+    <fileSet>
+      <directory>${project.build.scriptSourceDirectory}</directory>
+      <outputDirectory>${artifactId}</outputDirectory>
+      <includes>
+        <include>*.sh</include>
+        <include>*.txt</include>
+      </includes>
+      <filtered>true</filtered>
+    </fileSet>
+  </fileSets>
+</assembly>
