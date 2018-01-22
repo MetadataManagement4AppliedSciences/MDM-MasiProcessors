@@ -90,7 +90,7 @@ public class TikaMetadata {
     String[] metadataNames = pMetadata.names();
     for (String names : metadataNames) {
       String[] split = names.split(":");
-      if (split.length == 2) {
+      if (split.length >= 2) {
         addNamespace(split[0]);
       }
     }
@@ -181,6 +181,12 @@ public class TikaMetadata {
   private String normalizeElementName(String pElementName) {
     String trim = pElementName.trim();
     String replace = trim.replace(' ', '_').replace('/', '_');
+
+    String[] split = replace.split(":",2);
+      if (split.length == 2) {
+        replace = split[0] + ":" + split[1].replace(':', '_');
+      }
+    
     return replace;
   }
 }
