@@ -23,27 +23,100 @@ If you are struggling with the terms
 please read the documentation of the http://datamanager.kit.edu/dama/manual/[KIT Data Manager] first.
 **********************************************************************
 
-== MASi processors
+== MASi Processors
 
 .Requirements
 **********************************************************************
 . JDK 1.8
+. Maven 1.3
 . KIT Data Manager 1.5 or higher
 . MetaStoreService 1.0 or higher
 **********************************************************************
 
 === About this documentation
-This documentation gives a brief overview about the installation of
-the MASi processors as a part of KIT Data Manager. To configure the
-processors correctly please refer to 
-http://datamanager.kit.edu/dama/manual/#ChapterStagingProcessorConfiguration['Configure Staging Processor']
+This documentation gives a brief overview about the installation of the MASi processors as a part of KIT Data Manager. To configure the processors please also refer to http://datamanager.kit.edu/dama/manual/#ChapterStagingProcessorConfiguration[Configure Staging Processor]
+
 
 This artifact contains the following processors:
 
-* ImageResizer
-* TikaExtractor
+* Tika Extractor
+* XML Extractor 
+* Image Resizer
 
-=== ImageResizer 
+
+
+=== Tika Extractor 
+classname :: edu.kit.dama.mdm.content.mets.tikaextractor.TikaExtractorProcessor
+
+Extracts all metadata from each file using TIKA library.
+While the metadata depends on the file the linked schema allow any content
+inside the file elements.
+The extracted content metadata will be stored inside the METS file.
+
+==== Configuration
+If this is the only metadata extractor configure it as follows:
+
+===== Page 1:
+
+ACCESSIBLE BY :: All groups
+
+===== *General Options*
+
+Default :: ON
+Disabled :: OFF
+Ingest Supported :: ON
+Download Supported :: OFF
+
+===== Page 2:
+
+notifyPerEmailOnFail :: FALSE
+communityMetadataDmdId :: TIKA
+communityMDType :: OTHER
+communityMetadataSchemaId :: tika
+Plugin:bmd :: TRUE
+Plugin:oai_dc :: TRUE 
+
+
+
+
+=== XML Extractor 
+ClassName :: edu.kit.dama.mdm.content.mets.ExtractXmlMetadataFromFile
+
+Extracts the content metadata from an XML file that might hold all metadata in XML format. The extracted content metadata will be stored inside the METS file.
+
+==== Configuration
+This extractor has to be defined for each XML Schema of each community.
+
+===== Page 1:
+
+ACCESSIBLE BY :: community
+PRIORITY :: 5
+
+===== *General Options*
+
+Default :: ON
+Disabled :: OFF
+Ingest Supported :: ON
+Download Supported :: OFF
+
+===== Page 2:
+
+notifyPerEmailOnFail :: FALSE
+fileName :: metadata.xml
+communityMetadataDmdId :: depends on community
+communityMDType :: OTHER
+communityMetadataSchemaId :: depends on community
+Plugin:bmd :: TRUE
+Plugin:oai_dc :: TRUE 
+
+
+
+
+
+
+
+
+=== Image Resizer 
 classname :: edu.kit.masi.mdm.imagetransformer.ImageResizerProcessor
 
 This processor allows you to provide images in different sizes available via
@@ -117,36 +190,10 @@ Width :: 32, -1, 768
 Viewname :: icon, thumb, min
 Output format :: JPG
  
-=== TikaExtractor 
-classname :: edu.kit.dama.mdm.content.mets.tikaextractor.TikaExtractorProcessor
 
-Extracts all metadata from each file using TIKA library.
-While the metadata depends on the file the linked schema allow any content
-inside the file elements.
-The extracted content metadata will be stored inside the METS file.
 
-==== Configuration
-If this is the only metadata extractor configure it as follows:
 
-===== Page 1:
 
-ACCESSIBLE BY :: All groups
-
-===== *General Options*
-
-Default :: ON
-Disabled :: OFF
-Ingest Supported :: ON
-Download Supported :: OFF
-
-===== Page 2:
-
-notifyPerEmailOnFail :: FALSE
-communityMetadataDmdId :: TIKA
-communityMDType :: OTHER
-communityMetadataSchemaId :: tika
-Plugin:bmd :: TRUE
-Plugin:oai_dc :: TRUE 
 
 === Installation of the MASi Processors
 1. Stop tomcat
