@@ -1,7 +1,6 @@
 # MDM-MasiProcessors
 
-The MDM-MasiProcessors implements several staging processors for adding information
-to the digital objects during ingest.
+Several MASi staging processors for adding metadata to digital objects during ingest are provided.
 
 ## How to build
 

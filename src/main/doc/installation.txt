@@ -34,7 +34,7 @@ please read the documentation of the http://datamanager.kit.edu/dama/manual/[KIT
 **********************************************************************
 
 === About this documentation
-This documentation gives a brief overview about the installation of the MASi processors as a part of KIT Data Manager. To configure the processors please also refer to http://datamanager.kit.edu/dama/manual/#ChapterStagingProcessorConfiguration[Configure Staging Processor]
+Several MASi staging processors for adding metadata to digital objects during ingest are provided. This documentation gives a brief overview about them and their installation as a part of a KIT Data Manager repository instance. To configure the processors please also refer to http://datamanager.kit.edu/dama/manual/#ChapterStagingProcessorConfiguration[Configure Staging Processor].
 
 
 This artifact contains the following processors:
@@ -48,7 +48,7 @@ This artifact contains the following processors:
 === Tika Extractor 
 classname :: edu.kit.dama.mdm.content.mets.tikaextractor.TikaExtractorProcessor
 
-Extracts all metadata from each file using TIKA library.
+The Tika metadata extractor (staging processor) extracts all metadata from each file using the Apache Tike library.
 While the metadata depends on the file the linked schema allow any content
 inside the file elements.
 The extracted content metadata will be stored inside the METS file.
@@ -82,7 +82,7 @@ Plugin:oai_dc :: TRUE
 === XML Extractor 
 ClassName :: edu.kit.dama.mdm.content.mets.ExtractXmlMetadataFromFile
 
-Extracts the content metadata from an XML file that might hold all metadata in XML format. The extracted content metadata will be stored inside the METS file.
+The XML metadata extrator extracts the content metadata from an XML file that might hold all metadata in XML format. The extracted content metadata will be stored inside the METS file.
 
 ==== Configuration
 This extractor has to be defined for each XML Schema of each community.
@@ -119,18 +119,17 @@ Plugin:oai_dc :: TRUE
 === Image Resizer 
 classname :: edu.kit.masi.mdm.imagetransformer.ImageResizerProcessor
 
-This processor allows you to provide images in different sizes available via
-linked views. 
+This staging processor allows to create images in different sizes (for example thumbnails) and provide them via views (see http://datamanager.kit.edu/dama/manual/index.html#ChapterDataOrganization[KIT DM Documentation on views]). 
 There are 3 parameters responsible for the scaling of the images:
 
 * width
 * height
 * viewname
 
-All values are comma separated. Same index inside the list is linked to same
+All values are comma separated. Same index inside the list is linked to the same
 file.
 
-The 4th parameter defines a list of possible extensions of files which should be scaled.
+The 4th parameter defines a list of possible extensions of the files which should be scaled.
 
 *Example*: jpg, tif
 
