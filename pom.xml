@@ -25,12 +25,12 @@
     <dependency>
       <groupId>org.apache.tika</groupId>
       <artifactId>tika-parsers</artifactId>
-      <version>1.15</version>
+      <version>1.18</version>
     </dependency>
     <dependency>
       <groupId>net.imagej</groupId>
       <artifactId>ij</artifactId>
-      <version>1.50e</version>
+      <version>1.52e</version>
     </dependency>
     <dependency>
       <groupId>edu.kit.dama</groupId>
